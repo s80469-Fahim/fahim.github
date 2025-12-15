@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Bento Landing Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /*
+         * --- CSS Reset and Global Styles ---
+         */
+        :root {
+            --color-background: #f8f9fa; /* Soft White/Light Grey */
+            --color-card-bg: #ffffff; /* Pure White for Cards */
+            --color-text-primary: #212529; /* Dark Grey/Black */
+            --color-text-secondary: #6c757d; /* Medium Grey */
+            --color-accent: #0077b6; /* Subtle Blue Accent */
+            --border-radius-base: 12px;
+            --padding-base: 20px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /*
+         * --- Bento Grid Layout ---
+         */
+        .bento-container {
+            width: 100%;
+            max-width: 1200px; /* Max width for desktop */
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+            grid-template-rows: auto;
+            gap: 20px;
+            padding: 0;
+        }
+
+        .bento-card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--border-radius-base);
+            padding: var(--padding-base);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Soft shadow */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Ensure content respects border-radius */
+        }
+
+        /* Desktop Grid Area Definitions (4 columns) */
+
+        /* Card 1 (Profile): Large box (2x2) */
+        .card-profile {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        /* Card 2 (Location): Small box (1x1) */
+        .card-location {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        /* Card 3 (Tech Stack): Medium box (1x1) */
+        .card-tech-stack {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        /* Card 4 (Case Study): Medium box (1x1) */
+        .card-case-study {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        /* Card 5 (Hobby): Small box (1x1) - Placed next to Card 4 */
+        .card-hobby {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        /* Card 6 (Playlist): Wide box at the bottom (4x1) */
+        .card-playlist {
+            grid-column: span 4;
+        }
+
+
+        /*
+         * --- Card Specific Styling (Placeholders) ---
+         */
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-profile h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--color-accent);
+        }
+
+        .card-profile p {
+            font-size: 1.1rem;
+            color: var(--color-text-primary);
+            margin-bottom: 15px;
+        }
+
+        .social-links a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 15px;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: #005086;
+        }
+
+        .card-location .location-info {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .card-tech-stack .subject-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card-tech-stack .subject-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #f1f3f5;
+            color: var(--color-text-primary);
+        }
+
+        .card-case-study h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .card-hobby .activity-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .card-playlist {
+            text-align: center;
+        }
+
+        .card-playlist .placeholder-text {
+            font-size: 1.2rem;
+            color: var(--color-text-secondary);
+            margin-top: 10px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+        }
+
+
+        /*
+         * --- Responsive Design (Mobile First Stacking) ---
+         */
+
+        @media (max-width: 768px) {
+            .bento-container {
+                /* On mobile, stack all cards vertically (1 column) */
+                grid-template-columns: 1fr;
+                gap: 15px; /* Slightly smaller gap on mobile */
+            }
+
+            .bento-card {
+                /* All cards span the full width of the single column */
+                grid-column: span 1 !important;
+                grid-row: auto !important;
+            }
+
+            /* Adjust padding and font size for mobile */
+            :root {
+                --padding-base: 15px;
+            }
+
+            .card-profile h2 {
+                font-size: 2rem;
+            }
+
+            .card-profile p {
+                font-size: 1rem;
+            }
+
+            .card-location .location-info {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Order adjustment for a better stack flow on mobile (optional) */
+        @media (max-width: 768px) {
+            .card-profile { order: 1; }
+            .card-location { order: 2; }
+            .card-tech-stack { order: 3; }
+            .card-case-study { order: 4; }
+            .card-hobby { order: 5; }
+            .card-playlist { order: 6; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <main class="bento-container">
+
+        <section class="bento-card card-profile">
+            <p class="card-title">Student Profile</p>
+            <h2>FAHIM</h2>
+            <p><strong>Program:</strong> Bachelor of Food Science & Technology</p>
+            <p><strong>Year:</strong> 3rd Year (Semester 5)</p>
+            <div class="social-links">
+                <a href="#">LinkedIn</a>
+                <a href="https://github.com/s80469-Fahim/fahim.github">GitHub</a>
+                <a href="#">UMT Portal</a>
+            </div>
+            </section>
+
+        <section class="bento-card card-location">
+            <p class="card-title">Current Location</p>
+            <p class="location-info">Universiti Malaysia Terengganu (UMT)</p>
+            <p>11:00 AM, Monday</p>
+        </section>
+
+        <section class="bento-card card-tech-stack">
+            <p class="card-title">Key Subjects</p>
+            <ul class="subject-list">
+                <li>Food Chemistry (SKG301)</li>
+                <li>Food Microbiology (SKG302)</li>
+                <li>Food Engineering (SKG405)</li>
+                <li>Sensory Evaluation of Food</li>
+            </ul>
+        </section>
+
+        <section class="bento-
