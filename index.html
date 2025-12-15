@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Bento Landing Page - Updated</title>
+    <title>Student Bento Landing Page - Final</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -61,6 +61,8 @@
             
             /* Theme Tweak (3): Subtle Hover Effect */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* Needed for the ::before overlay */
+            z-index: 1;
         }
 
         .bento-card:hover {
@@ -74,8 +76,35 @@
         .card-profile {
             grid-column: span 2;
             grid-row: span 2;
+            /* === BACKGROUND IMAGE IMPLEMENTATION === */
+            background-image: url('bg.jpg'); /* This sets the image */
+            background-size: cover;          /* Ensures the image fills the area */
+            background-position: center;     /* Centers the image */
+            background-repeat: no-repeat;    /* Prevents tiling */
+            
+            /* Set content color to white for contrast */
+            color: white; 
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
 
+        /* Overlay for Profile Card to improve text readability (CRUCIAL) */
+        .card-profile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.2); /* 20% transparent black overlay */
+            border-radius: var(--border-radius-base);
+            z-index: 2; /* Put the overlay above the image, but below the content */
+        }
+
+        /* All content inside the profile card needs a higher z-index to sit above the overlay */
+        .card-profile > * {
+            z-index: 3;
+        }
+        
         /* Card 2 (Location): Small box (1x1) */
         .card-location {
             grid-column: span 1;
@@ -100,10 +129,9 @@
             grid-row: span 1;
         }
         
-        /* Card 7 (Reflection/New Card): Medium Box (2x1) - Needs 2 columns */
+        /* Card 7 (Reflection/New Card): Wide Box (2x1) */
         .card-reflection {
             grid-column: span 2; /* Spans 2 columns (Columns 3 and 4) */
-            /* Placed under Case Study and Hobby, before Playlist */
         }
 
 
@@ -125,23 +153,28 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+        
+        /* === PROFILE CARD TEXT OVERRIDES (FOR IMAGE BACKGROUND) === */
+        .card-profile .card-title {
+            color: rgba(255, 255, 255, 0.8);
+        }
 
         .card-profile h2 {
             font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 5px;
-            color: var(--color-accent);
+            color: white; /* Changed from --color-accent to white */
         }
 
         .card-profile p {
             font-size: 1.1rem;
-            color: var(--color-text-primary);
+            color: white; /* Changed from --color-text-primary to white */
             margin-bottom: 15px;
         }
 
         /* Update (1): Functional Links styling */
         .social-links a {
-            color: var(--color-accent);
+            color: white; /* Changed from --color-accent to white for image background */
             text-decoration: none;
             font-weight: 600;
             margin-right: 15px;
@@ -149,8 +182,9 @@
         }
 
         .social-links a:hover {
-            color: #005086;
+            color: #ddd; /* Lighter hover effect */
         }
+        /* === END PROFILE CARD TEXT OVERRIDES === */
 
         .card-location .location-info {
             font-size: 1.5rem;
@@ -193,8 +227,8 @@
             font-size: 1.2rem;
             color: var(--color-text-secondary);
             margin-top: 10px;
-            padding: 20px;
-            background-color: #e9ecef;
+            padding: 0; 
+            background-color: transparent;
             border-radius: 8px;
         }
 
@@ -214,12 +248,20 @@
                 /* All cards span the full width of the single column */
                 grid-column: span 1 !important;
                 grid-row: auto !important;
-                transform: none !important; /* Disable hover effect on touch devices/small screens */
+                transform: none !important; 
             }
 
             .bento-card:hover {
                  transform: none !important;
                  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+            }
+            
+            /* Ensure text contrast holds on mobile */
+            .card-profile .card-title,
+            .card-profile h2,
+            .card-profile p,
+            .card-profile .social-links a {
+                 color: white !important;
             }
 
             /* Adjust padding and font size for mobile */
@@ -233,7 +275,7 @@
             .card-tech-stack { order: 3; }
             .card-case-study { order: 4; }
             .card-hobby { order: 5; }
-            .card-reflection { order: 6; } /* New Card placed here */
+            .card-reflection { order: 6; }
             .card-playlist { order: 7; }
         }
 
@@ -258,7 +300,7 @@
         <section class="bento-card card-location">
             <p class="card-title">Current Location</p>
             <p class="location-info">Universiti Malaysia Terengganu (UMT)</p>
-            <p>11:21 AM, Monday</p>
+            <p>12:31 PM, Monday</p>
         </section>
 
         <section class="bento-card card-tech-stack">
