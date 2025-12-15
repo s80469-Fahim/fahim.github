@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Bento Landing Page</title>
+    <title>Student Bento Landing Page - Updated</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -57,7 +57,15 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Soft shadow */
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Ensure content respects border-radius */
+            overflow: hidden;
+            
+            /* Theme Tweak (3): Subtle Hover Effect */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-2px) scale(1.01); /* Subtle lift and scale */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
         /* Desktop Grid Area Definitions (4 columns) */
@@ -80,17 +88,24 @@
             grid-row: span 1;
         }
 
-        /* Card 4 (Case Study): Medium box (1x1) */
+        /* Card 4 (Case Study): Medium box (1x1) - Column 3 */
         .card-case-study {
             grid-column: span 1;
             grid-row: span 1;
         }
 
-        /* Card 5 (Hobby): Small box (1x1) - Placed next to Card 4 */
+        /* Card 5 (Hobby): Small box (1x1) - Column 4 */
         .card-hobby {
             grid-column: span 1;
             grid-row: span 1;
         }
+        
+        /* Card 7 (Reflection/New Card): Medium Box (2x1) - Needs 2 columns */
+        .card-reflection {
+            grid-column: span 2; /* Spans 2 columns (Columns 3 and 4) */
+            /* Placed under Case Study and Hobby, before Playlist */
+        }
+
 
         /* Card 6 (Playlist): Wide box at the bottom (4x1) */
         .card-playlist {
@@ -124,6 +139,7 @@
             margin-bottom: 15px;
         }
 
+        /* Update (1): Functional Links styling */
         .social-links a {
             color: var(--color-accent);
             text-decoration: none;
@@ -162,6 +178,12 @@
             font-size: 1.4rem;
             font-weight: 700;
         }
+        
+        .card-reflection p {
+            font-style: italic;
+            color: var(--color-text-primary);
+            line-height: 1.6;
+        }
 
         .card-playlist {
             text-align: center;
@@ -185,13 +207,19 @@
             .bento-container {
                 /* On mobile, stack all cards vertically (1 column) */
                 grid-template-columns: 1fr;
-                gap: 15px; /* Slightly smaller gap on mobile */
+                gap: 15px;
             }
 
             .bento-card {
                 /* All cards span the full width of the single column */
                 grid-column: span 1 !important;
                 grid-row: auto !important;
+                transform: none !important; /* Disable hover effect on touch devices/small screens */
+            }
+
+            .bento-card:hover {
+                 transform: none !important;
+                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
             }
 
             /* Adjust padding and font size for mobile */
@@ -199,27 +227,14 @@
                 --padding-base: 15px;
             }
 
-            .card-profile h2 {
-                font-size: 2rem;
-            }
-
-            .card-profile p {
-                font-size: 1rem;
-            }
-
-            .card-location .location-info {
-                font-size: 1.2rem;
-            }
-        }
-
-        /* Order adjustment for a better stack flow on mobile (optional) */
-        @media (max-width: 768px) {
+            /* Mobile Order adjustment for a better stack flow */
             .card-profile { order: 1; }
             .card-location { order: 2; }
             .card-tech-stack { order: 3; }
             .card-case-study { order: 4; }
             .card-hobby { order: 5; }
-            .card-playlist { order: 6; }
+            .card-reflection { order: 6; } /* New Card placed here */
+            .card-playlist { order: 7; }
         }
 
     </style>
@@ -230,20 +245,20 @@
 
         <section class="bento-card card-profile">
             <p class="card-title">Student Profile</p>
-            <h2>FAHIM</h2>
+            <h2>MUHAMAD FAHIM</h2>
             <p><strong>Program:</strong> Bachelor of Food Science & Technology</p>
-            <p><strong>Year:</strong> 3rd Year (Semester 5)</p>
+            <p><strong>Year:</strong> 1rd Year (Semester 1)</p>
             <div class="social-links">
-                <a href="#">LinkedIn</a>
-                <a href="https://github.com/s80469-Fahim/fahim.github">GitHub</a>
-                <a href="#">UMT Portal</a>
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank">GitHub</a>
+                <a href="#" target="_blank">UMT Portal</a>
             </div>
-            </section>
+        </section>
 
         <section class="bento-card card-location">
             <p class="card-title">Current Location</p>
             <p class="location-info">Universiti Malaysia Terengganu (UMT)</p>
-            <p>11:00 AM, Monday</p>
+            <p>11:21 AM, Monday</p>
         </section>
 
         <section class="bento-card card-tech-stack">
@@ -256,4 +271,32 @@
             </ul>
         </section>
 
-        <section class="bento-
+        <section class="bento-card card-case-study">
+            <p class="card-title">Recent Work</p>
+            <h3>Lab Experiment: Shelf-Life Extension of Canned Tuna</h3>
+            <p>Investigated the effect of natural antioxidants on lipid oxidation in stored seafood products. Data collection and analysis phase completed.</p>
+        </section>
+
+        <section class="bento-card card-hobby">
+            <p class="card-title">Campus Activity</p>
+            <p class="activity-name">Eco-Friendly Packaging Initiative</p>
+            <p>Team lead for developing biodegradable food container prototypes.</p>
+        </section>
+        
+        <section class="bento-card card-reflection">
+            <p class="card-title">Why Food Tech Matters in Malaysia</p>
+            <p>Sustainable food security is crucial for our future. By optimizing local processing methods, we can reduce waste and improve nutrition.</p>
+        </section>
+
+
+        <section class="bento-card card-playlist">
+            <p class="card-title">Focus Playlist</p>
+            <div class="placeholder-text">
+                [Music Player Placeholder: Lo-Fi Study Beats on Spotify]
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
